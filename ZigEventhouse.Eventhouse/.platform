@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Eventhouse",
+    "displayName": "ZigEventhouse",
+    "description": "Real-time trip activity analytics for the synthetic CDG Zig sample."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "376054e0-efae-a071-40b8-0b815802e923"
+  }
+}

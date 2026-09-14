@@ -1,0 +1,159 @@
+{
+  "schema_version": "60",
+  "title": "Zig Operations Dashboard",
+  "autoRefresh": {
+    "enabled": false
+  },
+  "baseQueries": [],
+  "parameters": [],
+  "dataSources": [
+    {
+      "kind": "manual-kusto",
+      "id": "14d82db0-135f-4ee9-8528-9fb72d324d06",
+      "name": "Zig",
+      "scopeId": "kusto",
+      "clusterUri": "https://trd-gj9mdws6tppcwa1es2.z4.kusto.fabric.microsoft.com",
+      "database": "Zig"
+    }
+  ],
+  "pages": [
+    {
+      "id": "1afdf9a1-532c-435c-a80a-0de66f49cbd4",
+      "name": "Overview"
+    }
+  ],
+  "queries": [
+    {
+      "id": "4fa96899-4a81-40f5-80ad-81874f7cfb39",
+      "text": "TripActivities | where EventTimestampUtc between (datetime(2026-06-01) .. datetime(2026-09-01)) | where ActivityType == \"Pickup\" | summarize Trips=count() by bin(EventTimestampUtc, 1h) | order by EventTimestampUtc asc",
+      "usedVariables": [],
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "14d82db0-135f-4ee9-8528-9fb72d324d06"
+      }
+    },
+    {
+      "id": "2a8b3c24-5827-47b2-9720-94db92ba5cc7",
+      "text": "TripActivities | where EventTimestampUtc between (datetime(2026-06-01) .. datetime(2026-09-01)) | where ActivityType == \"Pickup\" | join kind=leftouter Locations on LocationId | summarize Pickups=count() by PlanningArea | top 10 by Pickups desc",
+      "usedVariables": [],
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "14d82db0-135f-4ee9-8528-9fb72d324d06"
+      }
+    },
+    {
+      "id": "84f37989-1cc5-4849-a500-a83208ebdc32",
+      "text": "let Pickups = TripActivities | where EventTimestampUtc between (datetime(2026-06-01) .. datetime(2026-09-01)) and ActivityType == \"Pickup\" | project TripId, PickupLocationId=LocationId; let Dropoffs = TripActivities | where EventTimestampUtc between (datetime(2026-06-01) .. datetime(2026-09-01)) and ActivityType == \"Dropoff\" | project TripId, DropoffLocationId=LocationId; Pickups | join kind=inner Dropoffs on TripId | summarize Trips=count() by PickupLocationId, DropoffLocationId | top 20 by Trips desc",
+      "usedVariables": [],
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "14d82db0-135f-4ee9-8528-9fb72d324d06"
+      }
+    },
+    {
+      "id": "3e8d6c7c-9756-45d4-8de0-8837e18efda5",
+      "text": "TripActivities | where EventTimestampUtc between (datetime(2026-06-01) .. datetime(2026-09-01)) | summarize PickupTime=minif(EventTimestampUtc, ActivityType == \"Pickup\"), DropoffTime=maxif(EventTimestampUtc, ActivityType == \"Dropoff\") by TripId | extend DurationMinutes=datetime_diff(\"minute\", DropoffTime, PickupTime) | summarize Trips=count(), P50Minutes=percentile(DurationMinutes, 50), P95Minutes=percentile(DurationMinutes, 95)",
+      "usedVariables": [],
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "14d82db0-135f-4ee9-8528-9fb72d324d06"
+      }
+    },
+    {
+      "id": "0744337b-fed0-469e-8682-b78fba8cf82f",
+      "text": "TripActivities | where EventTimestampUtc between (datetime(2026-06-01) .. datetime(2026-09-01)) | summarize arg_max(EventTimestampUtc, *) by Vin | project EventTimestampUtc, Vin, ActivityType, Latitude, Longitude",
+      "usedVariables": [],
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "14d82db0-135f-4ee9-8528-9fb72d324d06"
+      }
+    }
+  ],
+  "tiles": [
+    {
+      "id": "6be9bc64-3148-4172-a7e1-115f15596c6e",
+      "title": "Trips by Hour",
+      "pageId": "1afdf9a1-532c-435c-a80a-0de66f49cbd4",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 8
+      },
+      "visualType": "timechart",
+      "visualOptions": {},
+      "queryRef": {
+        "kind": "query",
+        "queryId": "4fa96899-4a81-40f5-80ad-81874f7cfb39"
+      }
+    },
+    {
+      "id": "712e34c7-ea4f-4927-9bd6-580f0f3de694",
+      "title": "Pickup Demand by Planning Area",
+      "pageId": "1afdf9a1-532c-435c-a80a-0de66f49cbd4",
+      "layout": {
+        "x": 0,
+        "y": 8,
+        "width": 12,
+        "height": 8
+      },
+      "visualType": "bar",
+      "visualOptions": {},
+      "queryRef": {
+        "kind": "query",
+        "queryId": "2a8b3c24-5827-47b2-9720-94db92ba5cc7"
+      }
+    },
+    {
+      "id": "d01a8607-2fd2-4839-b1be-8a55e3914e52",
+      "title": "Top Origin-Destination Pairs",
+      "pageId": "1afdf9a1-532c-435c-a80a-0de66f49cbd4",
+      "layout": {
+        "x": 12,
+        "y": 8,
+        "width": 12,
+        "height": 8
+      },
+      "visualType": "table",
+      "visualOptions": {},
+      "queryRef": {
+        "kind": "query",
+        "queryId": "84f37989-1cc5-4849-a500-a83208ebdc32"
+      }
+    },
+    {
+      "id": "62f02ef7-9752-4d3e-93c2-9188a4400583",
+      "title": "Trip Duration Summary",
+      "pageId": "1afdf9a1-532c-435c-a80a-0de66f49cbd4",
+      "layout": {
+        "x": 0,
+        "y": 16,
+        "width": 12,
+        "height": 7
+      },
+      "visualType": "table",
+      "visualOptions": {},
+      "queryRef": {
+        "kind": "query",
+        "queryId": "3e8d6c7c-9756-45d4-8de0-8837e18efda5"
+      }
+    },
+    {
+      "id": "d0f96464-9b55-4348-bdfe-1e6fd4bc62ce",
+      "title": "Latest Vehicle Positions",
+      "pageId": "1afdf9a1-532c-435c-a80a-0de66f49cbd4",
+      "layout": {
+        "x": 12,
+        "y": 16,
+        "width": 12,
+        "height": 7
+      },
+      "visualType": "table",
+      "visualOptions": {},
+      "queryRef": {
+        "kind": "query",
+        "queryId": "0744337b-fed0-469e-8682-b78fba8cf82f"
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "KQLDatabase",
+    "displayName": "ZigEventhouse"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0150a872-22a5-9c38-4732-30c62c5e83e2"
+  }
+}

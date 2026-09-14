@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "KQLDashboard",
+    "displayName": "Zig Operations Dashboard",
+    "description": "Real-time trip activity dashboard for the synthetic CDG Zig sample."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "bf0d992a-c1d1-b1aa-44e8-62fb9714c00d"
+  }
+}
