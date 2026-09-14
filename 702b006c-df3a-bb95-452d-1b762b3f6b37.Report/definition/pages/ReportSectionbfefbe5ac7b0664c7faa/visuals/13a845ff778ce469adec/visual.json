@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Source: ZigEventhouse / Zig KQL Database -> ZigLakehouse Gold Delta tables",
+                    "value": "Source: CdgZigMedallionLakehouse / Gold Delta tables | Direct Lake",
                     "textStyle": {
                       "fontFamily": "Aptos Display",
                       "fontSize": "10px",

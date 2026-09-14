@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "KQLDatabase",
+    "displayName": "Zig",
+    "description": "Synthetic CDG Zig trip events and analytical dimensions."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4925a599-8916-ba49-452e-810c81897492"
+  }
+}

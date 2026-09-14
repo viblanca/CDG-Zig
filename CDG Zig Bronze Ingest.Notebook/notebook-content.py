@@ -3,6 +3,9 @@
 # METADATA ********************
 
 # META {
+# META   "kernel_info": {
+# META     "name": "synapse_pyspark"
+# META   },
 # META   "dependencies": {
 # META     "lakehouse": {
 # META       "default_lakehouse": "b39bc734-1a7e-4fb9-a51b-42bf47116ccc",
@@ -49,3 +52,10 @@ for dataset_name, column_names in columns.items():
 bronze_counts = {name: spark.table(f"bronze.{name}_raw").count() for name in columns}
 assert bronze_counts == expected_counts, bronze_counts
 notebookutils.notebook.exit(str(bronze_counts))
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }

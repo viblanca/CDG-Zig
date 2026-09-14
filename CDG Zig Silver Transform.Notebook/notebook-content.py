@@ -3,6 +3,9 @@
 # METADATA ********************
 
 # META {
+# META   "kernel_info": {
+# META     "name": "synapse_pyspark"
+# META   },
 # META   "dependencies": {
 # META     "lakehouse": {
 # META       "default_lakehouse": "b39bc734-1a7e-4fb9-a51b-42bf47116ccc",
@@ -76,3 +79,10 @@ counts = {"trip_activities": valid_activities.count(), "vehicles": vehicles.coun
 assert counts == {"trip_activities": 12000, "vehicles": 300, "customers": 2200, "app_downloads": 2200, "locations": 12, "activity_types": 10, "rejections": 0}, counts
 assert valid_activities.groupBy("event_id").count().filter("count > 1").limit(1).count() == 0
 notebookutils.notebook.exit(str(counts))
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }

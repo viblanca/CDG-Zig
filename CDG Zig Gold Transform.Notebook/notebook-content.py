@@ -53,16 +53,20 @@ hourly_demand = (fact_trips.groupBy("trip_date", "singapore_hour", "origin_plann
 outputs = {"dim_date": dim_date, "dim_vehicles": dim_vehicles, "dim_customers": dim_customers, "dim_locations": dim_locations, "dim_activity_types": dim_activity_types}
 for table_name, dataframe in outputs.items():
     dataframe.write.format("delta").mode("overwrite").saveAsTable(f"gold.{table_name}")
-fact_app_downloads.write.format("delta").mode("overwrite").partitionBy("download_date").saveAsTable("gold.fact_app_downloads")
+spark.sql("DROP TABLE IF EXISTS gold.fact_app_downloads")
+fact_app_downloads.coalesce(1).write.format("delta").mode("overwrite").saveAsTable("gold.fact_app_downloads")
 fact_trips.write.format("delta").mode("overwrite").partitionBy("trip_date").saveAsTable("gold.fact_trips")
 daily_trip_summary.write.format("delta").mode("overwrite").partitionBy("trip_date").saveAsTable("gold.daily_trip_summary")
 hourly_demand.write.format("delta").mode("overwrite").partitionBy("trip_date").saveAsTable("gold.hourly_demand")
+spark.sql("OPTIMIZE gold.fact_app_downloads")
 spark.sql("OPTIMIZE gold.fact_trips ZORDER BY (customer_id, vin, origin_location_id)")
 spark.sql("OPTIMIZE gold.daily_trip_summary ZORDER BY (origin_planning_area, destination_planning_area)")
 
+app_download_detail = spark.sql("DESCRIBE DETAIL gold.fact_app_downloads").first().asDict()
+assert app_download_detail["numFiles"] <= 10, app_download_detail
 counts = {"fact_trips": fact_trips.count(), "dim_vehicles": dim_vehicles.count(), "dim_customers": dim_customers.count(), "fact_app_downloads": fact_app_downloads.count(), "dim_locations": dim_locations.count()}
 assert counts == {"fact_trips": 6000, "dim_vehicles": 300, "dim_customers": 2200, "fact_app_downloads": 2200, "dim_locations": 12}, counts
 assert fact_trips.groupBy("trip_id").count().filter("count > 1").limit(1).count() == 0
 assert fact_trips.filter(F.col("pickup_timestamp_utc") >= F.col("dropoff_timestamp_utc")).limit(1).count() == 0
 assert fact_trips.filter(F.col("duration_minutes") <= 0).limit(1).count() == 0
-notebookutils.notebook.exit(str(counts))
+notebookutils.notebook.exit(str({"counts": counts, "app_download_files": app_download_detail["numFiles"]}))
