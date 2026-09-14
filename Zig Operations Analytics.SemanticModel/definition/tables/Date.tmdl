@@ -1,0 +1,56 @@
+/// Contiguous calendar for trip and app-download analysis.
+table Date
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		summarizeBy: none
+		sourceColumn: date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: year
+
+	column Quarter
+		dataType: string
+		summarizeBy: none
+		sourceColumn: quarter
+
+	column 'Month Number'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: month_number
+
+	column 'Month Name'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: month_name
+		sortByColumn: 'Month Number'
+
+	column 'Year Month'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: year_month
+
+	column Weekday
+		dataType: string
+		summarizeBy: none
+		sourceColumn: weekday
+
+	column 'Is Weekend'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+	partition Date = entity
+		mode: directLake
+		source
+			entityName: dim_date
+			schemaName: gold
+			expressionSource: 'DirectLake - Zig Operations Analytics'
+

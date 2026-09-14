@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Zig Operations Analytics",
+    "description": "Direct Lake model over CDG Zig Gold tables"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "28755f40-0c88-bb2e-4809-5a47e068c26d"
+  }
+}

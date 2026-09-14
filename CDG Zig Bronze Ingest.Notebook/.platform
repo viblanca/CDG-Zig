@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "CDG Zig Bronze Ingest",
+    "description": "CDG Zig Bronze Ingest for the CDG Zig medallion flow"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "aa2b6247-419f-b860-43dc-0b55c4045ce4"
+  }
+}

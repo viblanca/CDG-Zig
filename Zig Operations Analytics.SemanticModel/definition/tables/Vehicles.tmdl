@@ -1,0 +1,88 @@
+/// Synthetic Zig fleet snapshot used for capacity and composition analysis.
+table Vehicles
+
+	measure 'Fleet Vehicles' = DISTINCTCOUNT('Vehicles'[VIN])
+		formatString: #,##0
+		displayFolder: Fleet
+
+	measure 'Fleet Available' = CALCULATE([Fleet Vehicles], 'Vehicles'[Fleet Status] = "Active")
+		formatString: #,##0
+		displayFolder: Fleet
+
+	measure 'Fleet Availability %' = DIVIDE([Fleet Available], [Fleet Vehicles])
+		formatString: 0.0%
+		displayFolder: Fleet
+
+	measure 'Electric Fleet' = CALCULATE([Fleet Vehicles], 'Vehicles'[Powertrain] = "Battery Electric")
+		formatString: #,##0
+		displayFolder: Fleet
+
+	measure 'Electric Fleet %' = DIVIDE([Electric Fleet], [Fleet Vehicles])
+		formatString: 0.0%
+		displayFolder: Fleet
+
+	column VIN
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: vin
+
+	column 'Fleet Vehicle ID'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: fleet_vehicle_id
+
+	column 'Vehicle Make'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: vehicle_make
+
+	column 'Vehicle Model'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: vehicle_model
+
+	column 'Vehicle Make and Model'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: vehicle_make_model
+
+	column 'Model Year'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: model_year
+
+	column 'Vehicle Class'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: vehicle_class
+
+	column Powertrain
+		dataType: string
+		summarizeBy: none
+		sourceColumn: powertrain
+
+	column 'Seating Capacity'
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: seating_capacity
+
+	column 'Accessibility Enabled'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: accessibility_enabled
+
+	column 'Fleet Status'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: fleet_status
+
+	partition Vehicles = entity
+		mode: directLake
+		source
+			entityName: dim_vehicles
+			schemaName: gold
+			expressionSource: 'DirectLake - Zig Operations Analytics'
+

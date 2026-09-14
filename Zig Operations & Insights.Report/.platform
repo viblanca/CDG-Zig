@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Zig Operations & Insights",
+    "description": "CDG Zig operations and demand analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0e71a57c-1fe9-87f7-45b6-d5f51b772607"
+  }
+}

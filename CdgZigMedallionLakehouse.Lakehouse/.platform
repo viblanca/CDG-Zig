@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "CdgZigMedallionLakehouse",
+    "description": "Schema-enabled Bronze, Silver, and Gold CDG Zig lakehouse"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "47116ccc-42bf-a51b-4fb9-1a7eb39bc734"
+  }
+}

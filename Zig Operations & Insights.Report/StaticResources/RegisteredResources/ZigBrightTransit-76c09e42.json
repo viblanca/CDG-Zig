@@ -1,0 +1,50 @@
+{
+  "name": "ZigBrightTransit-76c09e42.json",
+  "dataColors": [
+    "#0057B8",
+    "#00A6A6",
+    "#107C10",
+    "#C56A00",
+    "#C42B1C",
+    "#5E6B78",
+    "#6B4FA1",
+    "#4C8C2B"
+  ],
+  "good": "#107C10",
+  "neutral": "#C56A00",
+  "bad": "#C42B1C",
+  "maximum": "#0057B8",
+  "center": "#00A6A6",
+  "minimum": "#DCEBFA",
+  "null": "#A9B4BE",
+  "foreground": "#17212B",
+  "background": "#FFFFFF",
+  "tableAccent": "#0057B8",
+  "firstLevelElements": "#17212B",
+  "secondLevelElements": "#5E6B78",
+  "thirdLevelElements": "#D7E0E8",
+  "fourthLevelElements": "#71808E",
+  "secondaryBackground": "#EDF2F6",
+  "textClasses": {
+    "label": {
+      "fontFace": "Aptos",
+      "fontSize": 11,
+      "color": "#17212B"
+    },
+    "title": {
+      "fontFace": "Aptos Display",
+      "fontSize": 13,
+      "color": "#17212B"
+    },
+    "callout": {
+      "fontFace": "Aptos Display",
+      "fontSize": 28,
+      "color": "#17212B"
+    },
+    "header": {
+      "fontFace": "Aptos Display",
+      "fontSize": 12,
+      "color": "#17212B"
+    }
+  }
+}

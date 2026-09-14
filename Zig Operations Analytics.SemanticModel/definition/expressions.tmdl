@@ -1,0 +1,6 @@
+expression 'DirectLake - Zig Operations Analytics' =
+		let
+			Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/58d7b1b1-59f5-42d7-b8f0-1aa545be8306/b39bc734-1a7e-4fb9-a51b-42bf47116ccc", [HierarchicalNavigation=true])
+		in
+			Source
+

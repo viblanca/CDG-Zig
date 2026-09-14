@@ -1,0 +1,12 @@
+model Model
+	culture: en-SG
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-SG
+
+ref table Date
+ref table Trips
+ref table Vehicles
+ref table Customers
+ref table 'App Downloads'
+

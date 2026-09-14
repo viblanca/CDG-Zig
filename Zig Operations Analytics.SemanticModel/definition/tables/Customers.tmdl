@@ -1,0 +1,47 @@
+/// Privacy-conscious synthetic Zig customer dimension.
+table Customers
+
+	column 'Customer ID'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column 'Customer Segment'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: customer_segment
+
+	column 'Loyalty Tier'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: loyalty_tier
+
+	column 'Member Since'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		summarizeBy: none
+		sourceColumn: member_since
+
+	column 'Preferred Booking Channel'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: preferred_booking_channel
+
+	column 'Home Region'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: home_region
+
+	column 'Marketing Consent'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: marketing_consent
+
+	partition Customers = entity
+		mode: directLake
+		source
+			entityName: dim_customers
+			schemaName: gold
+			expressionSource: 'DirectLake - Zig Operations Analytics'
+

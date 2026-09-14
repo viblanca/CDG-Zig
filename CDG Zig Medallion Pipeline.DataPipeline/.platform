@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "CDG Zig Medallion Pipeline",
+    "description": "Loads CDG Zig CSV files and builds validated Bronze, Silver, and Gold Delta tables."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d71a08cc-9848-8137-4f83-f1e3dc308e59"
+  }
+}

@@ -1,0 +1,53 @@
+/// One initial synthetic Zig app download per customer.
+table 'App Downloads'
+
+	measure 'App Downloads' = DISTINCTCOUNT('App Downloads'[Download ID])
+		formatString: #,##0
+		displayFolder: Acquisition
+
+	measure 'Downloading Customers' = DISTINCTCOUNT('App Downloads'[Customer ID])
+		formatString: #,##0
+		displayFolder: Acquisition
+
+	column 'Download ID'
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		summarizeBy: none
+		sourceColumn: download_id
+
+	column 'Customer ID'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column 'Download Date'
+		dataType: dateTime
+		isHidden
+		formatString: dd mmm yyyy
+		summarizeBy: none
+		sourceColumn: download_date
+
+	column Platform
+		dataType: string
+		summarizeBy: none
+		sourceColumn: platform
+
+	column 'App Version'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: app_version
+
+	column 'Acquisition Channel'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: acquisition_channel
+
+	partition 'App Downloads' = entity
+		mode: directLake
+		source
+			entityName: fact_app_downloads
+			schemaName: gold
+			expressionSource: 'DirectLake - Zig Operations Analytics'
+

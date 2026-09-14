@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "CDG Zig Gold Transform",
+    "description": "CDG Zig Gold Transform for the CDG Zig medallion flow"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e80586c2-60e3-935f-46d6-e25eb7cc788a"
+  }
+}

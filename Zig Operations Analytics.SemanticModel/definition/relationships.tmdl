@@ -1,0 +1,20 @@
+relationship 'Trips to Date'
+	fromColumn: Trips.'Trip Date'
+	toColumn: Date.Date
+
+relationship 'Trips to Vehicles'
+	fromColumn: Trips.VIN
+	toColumn: Vehicles.VIN
+
+relationship 'Trips to Customers'
+	fromColumn: Trips.'Customer ID'
+	toColumn: Customers.'Customer ID'
+
+relationship 'Downloads to Date'
+	fromColumn: 'App Downloads'.'Download Date'
+	toColumn: Date.Date
+
+relationship 'Downloads to Customers'
+	fromColumn: 'App Downloads'.'Customer ID'
+	toColumn: Customers.'Customer ID'
+
